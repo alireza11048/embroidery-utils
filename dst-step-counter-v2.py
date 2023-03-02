@@ -77,31 +77,35 @@ stepx_sum = 0
 stepy_sum = 0
 dirx_sum = 0
 diry_sum = 0
+past_st_x = 0
+past_st_y = 0
 for i in  range(0, stich_count):
     stepx_sum += abs(res[i][0])
     stepy_sum += abs(res[i][1])
-    if i != 0:
+    if abs(res[i][0]) != 0:
         current_st = res[i][0]
-        past_st = res[i - 1][0]
+        # past_st = res[i - 1][0]
         if current_st == 0:
             current_st = 1
-        if past_st == 0:
-            past_st = 1
-        if (current_st * past_st) < 0:
+        if past_st_x == 0:
+            past_st_x = 1
+        if (current_st * past_st_x) < 0:
             dirx_sum += 1
-
+        past_st_x = res[i][0]
+    if abs(res[i][1]) != 0:
         current_st = res[i][1]
-        past_st = res[i - 1][1]
+        # past_st = res[i - 1][1]
         if current_st == 0:
             current_st = 1
-        if past_st == 0:
-            past_st = 1
-        if (current_st * past_st) < 0:
+        if past_st_y == 0:
+            past_st_y = 1
+        if (current_st * past_st_y) < 0:
             diry_sum += 1
+        past_st_y = res[i][1]
 
 print("sum_x: " + str(stepx_sum))
 print("sum_y: " + str(stepy_sum))
-print("dir_x: " + str(dirx_sum))
-print("dir_y: " + str(diry_sum))
+print("dir_x: " + str(dirx_sum / 2))
+print("dir_y: " + str(diry_sum / 2))
 f.close()
 
